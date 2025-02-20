@@ -1,0 +1,6 @@
+// Ensure this file exists in the public directory.
+
+<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 20C10 14.4772 14.4772 10 20 10H30C35.5228 10 40 14.4772 40 20C40 25.5228 35.5228 30 30 30H20C14.4772 30 10 25.5228 10 20Z" fill="#FFFFFF"/>
+  <text x="50" y="25" font-family="Arial" font-size="18" font-weight="bold" fill="#FFFFFF">SavePlate</text>
+</svg>
