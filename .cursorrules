@@ -1,0 +1,344 @@
+# Instructions
+
+This file serves as a guide and scratchpad to:
+- Track ongoing tasks and progress.
+- Document debugging lessons and fixes.
+- Maintain flexibility for future enhancements.
+- Prevent repetition of previous mistakes.
+
+Whenever you encounter reusable information (e.g., library versions, API integrations, fixes), record it in the Lessons section. Update the task list with priority tags ([High], [Medium], [Low]) and mark completed items with [x]. Use this file to plan your next steps.
+
+# Debugging Guidelines
+
+## Authentication
+- Ensure `authOptions` is defined and imported correctly before passing it to `NextAuth()`.
+- Verify that `.env` includes `NEXTAUTH_SECRET`, `AUTH0_CLIENT_ID`, and `AUTH0_CLIENT_SECRET`.
+- Confirm that sign-in and error pages are correctly specified (e.g., `pages: { signIn: "/auth/signin", error: "/auth/error" }`).
+- Handle role-based authentication in API routes using `getServerSession`.
+
+## Database
+- Run migrations using: `npx prisma migrate dev --name init`
+- Check that the Prisma client (in `lib/db.ts`) is correctly configured.
+- Validate all incoming API data with Zod.
+- Use transactions for operations that modify multiple tables.
+
+## API
+- Follow RESTful conventions for API routes (e.g., `/api/food-items`, `/api/users`).
+- Secure API endpoints using JWT authentication and middleware.
+- Ensure proper error handling and logging in API routes.
+- Use consistent response formats with ApiResponse<T> type.
+
+## Frontend
+- Use `className` for styling in Framer Motion components; pass inline styles only when necessary.
+- Update UI state using `useEffect` for dynamic and real-time updates.
+- Ensure all form validations (with Zod) and input handling are correctly implemented.
+- Implement proper TypeScript interfaces for all components and API responses.
+
+# Lessons
+
+## User-Specified Lessons
+- Always use the Python venv in `./venv` when running scripts.
+- Include detailed debug information in error logs to help with troubleshooting.
+- Read files thoroughly before editing to avoid conflicts.
+- When using git with Cursor for multiline commit messages, write the message in a file and commit with `git commit -F <filename>`, then remove the file. Prepend commit messages with "[Cursor]".
+
+## SavePlate-Specific Lessons
+- **Auth0/NextAuth:** `authOptions` must be defined before calling `NextAuth()`. Missing `NEXTAUTH_SECRET` leads to silent authentication failures.
+- **Map Integration:** Ensure GoMap and Google Maps API keys are loaded correctly from `.env.local`.
+- **Frontend Animations:** Use `className` with Framer Motion components; avoid mixing inline styles if possible.
+- **Database:** Use Zod for consistent validation. Document any changes to Prisma schema and migrations.
+- **Component Architecture:** Keep UI components in `/components/ui` directory with consistent patterns for props and styling.
+- **Type Safety:** Define shared types in `/types` directory and reuse them across components and API routes.
+- **API Response Handling:** Use consistent error handling and response formats across all API routes.
+- **Form Validation:** Use Zod schemas with custom hooks for form validation and error handling.
+- **Component Naming:** Keep component file names in lowercase to avoid import casing issues.
+- **Performance:** Implement lazy loading for 3D components and heavy UI elements
+- **State Management:** Use React Query for server state and Zustand for client state
+- **Error Boundaries:** Add error boundaries around critical components
+- **Testing Strategy:** Implement Jest for unit tests and Cypress for E2E testing
+- **Code Organization:** Keep feature-specific components in their respective feature directories
+- **API Structure:** Use tRPC for type-safe API routes and better DX
+- **Security:** Implement rate limiting and request validation using middleware
+- **Zod Schema Design:** When using Zod with default values, use transform to ensure proper type inference
+- **Form State Management:** Initialize form state with all required fields including defaults to prevent type mismatches
+- **TypeScript Integration:** Use explicit type assertions with transforms in Zod schemas to improve type inference
+- **Geolocation:** Implement fallback handling for cases where geolocation is not available or denied
+- **Error Boundaries:** Implement error boundaries for geolocation and API calls separately
+
+## Next.js Configuration Lessons
+- Remove deprecated options like `swcMinify` from next.config.js
+- Use proper configuration for serverActions with allowedOrigins and allowedForwardedHosts
+- Keep experimental features properly configured with latest Next.js version
+- Always check Next.js documentation for configuration changes between versions
+
+## API Security Lessons
+- Implement rate limiting before exposing APIs to production
+- Use proper validation middleware for all API routes
+- Keep security headers consistent across all routes
+- Implement proper CORS configuration for production
+- Use environment-specific configurations for security features
+
+## Development Environment Lessons
+- Always check port availability and configure alternate ports in development
+- Keep development environment variables in sync with production requirements
+- Monitor Next.js configuration warnings and errors
+- Keep dependencies updated to avoid compatibility issues
+
+# Scratchpad
+
+## 🚀 SavePlate Development Progress
+
+### ✅ Completed Tasks
+[x] **Project Setup**
+    - Next.js with TypeScript initialization
+    - Tailwind CSS & global styling configuration
+    - Environment configuration (.env and .env.local)
+[x] **Core Components**
+    - Hero3D.tsx (3D animation)
+    - Navbar.tsx, Footer.tsx, Features.tsx, CallToAction.tsx
+    - FoodBox.tsx 3D component
+[x] **Layout & Routing**
+    - Root layout.tsx implementation
+    - Basic routing and provider setup
+    - Auth routes configuration
+[x] **UI Components**
+    - Button, Card, Input, Select, Textarea components
+    - Modal, Toast, Loading, Badge components
+    - Table, Dropdown, Tabs components
+[x] **Authentication**
+    - NextAuth.js integration with Google and Credentials providers
+    - Role-based access control implementation
+    - Auth0 configuration
+[x] **API Routes**
+    - User authentication and profile management
+    - Settings management
+    - Donations and pickups CRUD operations
+[x] **Form Validation**
+    - Zod schema implementation
+    - Custom form hook with validation
+    - Error handling and feedback
+
+### 🚧 Current Sprint Tasks (Priority: High)
+
+#### 🔹 Home Page Implementation (Priority: High)
+[x] Hero Section with 3D Model
+[x] Impact Statistics with Dynamic Counters
+[x] How It Works Section
+[x] Interactive Map Preview Integration
+[x] Testimonials Section
+[x] Call to Action Section
+[ ] Mobile Responsiveness Optimization
+
+#### 🔹 Map Integration (Priority: High)
+[ ] Complete GoMap API Integration
+[ ] Add Real-time Location Updates
+[ ] Implement Location Markers
+[ ] Add Distance Calculation
+[ ] Optimize Performance
+
+#### 🔹 Performance Optimization (Priority: High)
+[ ] Implement Image Optimization
+[ ] Add Progressive Loading
+[ ] Optimize 3D Model Loading
+[ ] Add Skeleton Loading States
+[ ] Implement Service Worker
+
+#### 🔹 Testing & Documentation (Priority: Medium)
+[ ] Add Unit Tests for Components
+[ ] E2E Testing Setup
+[ ] Performance Testing
+[ ] Accessibility Testing
+[ ] Documentation Updates
+
+#### 🔹 Type Safety & Form Validation (Priority: High)
+[x] Fix useForm hook type recursion issue
+[x] Add comprehensive type tests for form validation
+[x] Implement strict type checking for API responses
+[x] Add runtime type checking with Zod for all API endpoints
+
+#### 🔹 API Security & Performance (Priority: High)
+[x] Implement rate limiting for public API endpoints
+[x] Add request validation middleware for all API routes
+[x] Set up proper CORS configuration
+[x] Implement API key authentication for external services
+
+#### 🔹 Dashboard Enhancements
+[x] Complete the donations/new page implementation
+[x] Add form validation for donation creation
+[x] Implement donation status tracking
+[x] Add donation management features (edit, delete, status update)
+
+#### 🔹 Real-time Features
+[x] Set up WebSocket connection for real-time updates
+[x] Implement notification system for new donations
+[x] Add real-time status updates for donations
+[x] Create chat feature for donor-volunteer communication
+
+#### 🔹 Testing & Documentation (Priority: High)
+[x] Write unit tests for UI components
+[x] Add integration tests for API routes
+[x] Create API documentation
+[x] Add JSDoc comments for components
+[x] Set up Jest configuration for API route testing
+[x] Create API documentation using Swagger/OpenAPI
+[x] Add integration tests for critical user flows
+[x] Implement E2E tests for core features
+
+#### 🔹 Performance Optimization (Priority: Medium)
+[ ] Implement image optimization and lazy loading
+[ ] Add service worker for offline support
+[ ] Optimize bundle size with code splitting
+[ ] Implement server-side caching strategy
+
+#### 🔹 User Experience Enhancements (Priority: Medium)
+[x] Add form validation with Zod
+[x] Implement better error handling and user feedback
+[x] Add loading states and transitions
+[x] Improve mobile responsiveness
+[ ] Add skeleton loading states for all async operations
+[ ] Implement progressive image loading
+[ ] Add error recovery mechanisms
+[ ] Improve form accessibility
+
+### 🚧 Pending Tasks
+
+#### 🔹 Dashboard Features (Priority: High)
+[x] Implement real-time updates for donations and pickups
+[x] Add filtering and sorting options for donations list
+[x] Create detailed analytics and reporting features
+[x] Add map view for nearby donations
+
+#### 🔹 User Experience (Priority: High)
+[x] Add form validation with Zod
+[x] Implement better error handling and user feedback
+[x] Add loading states and transitions
+[x] Improve mobile responsiveness
+
+#### 🔹 Testing & Documentation (Priority: High)
+[x] Write unit tests for UI components
+[x] Add integration tests for API routes
+[x] Create API documentation
+[x] Add JSDoc comments for components
+
+#### 🔹 Performance & Security (Priority: Medium)
+[ ] Implement rate limiting for API routes
+[ ] Add request validation middleware
+[ ] Optimize image loading and processing
+[ ] Add security headers and CSP
+
+### 🌟 Future Enhancements
+[ ] Integrate AI-based food demand prediction (Low priority)
+[ ] Enhance gamification (badges, volunteer points, leaderboards) (Medium priority)
+[ ] Add multi-language support (Low priority)
+[ ] Implement real-time food request matching with WebSockets (Medium priority)
+[ ] Implement analytics dashboard for donation trends
+[ ] Add food waste impact calculator
+[ ] Create mobile app using React Native
+[ ] Implement social sharing features
+
+# Recently Fixed Issues
+- **Next.js Config:** Fixed invalid configuration options for serverActions and removed deprecated swcMinify option
+- **Form Hook Types:** Fixed infinite type recursion in useForm hook's FieldPath type and added comprehensive tests
+- **Framer Motion:** Fixed issues with missing `
+
+# Recently Implemented Features
+
+## Mobile Responsiveness
+[x] Added responsive utility classes in globals.css
+[x] Implemented container-responsive classes
+[x] Added responsive typography utilities
+[x] Created responsive grid layouts
+[x] Added touch-target optimizations
+[x] Implemented responsive spacing utilities
+[x] Added media query utilities for mobile/desktop views
+[x] Implemented reduced motion preferences
+
+## Performance Optimizations
+[x] Added image optimization configuration
+[x] Implemented PWA support with next-pwa
+[x] Added performance-focused CSS utilities
+[x] Configured proper caching headers
+[x] Implemented lazy loading utilities
+[x] Added bundle optimization settings
+[x] Configured security headers
+[x] Added source maps for development
+
+## Testing Setup
+[x] Configured Jest with Next.js
+[x] Added Testing Library setup
+[x] Created custom test matchers
+[x] Added test coverage configuration
+[x] Implemented mock utilities for testing
+[x] Added CI test configuration
+[x] Created sample test file
+
+# Next Steps
+
+## Mobile Responsiveness
+[ ] Test responsive design on various devices
+[ ] Implement responsive navigation menu
+[ ] Add touch gesture support
+[ ] Test PWA installation flow
+[ ] Optimize for different screen sizes
+
+## Performance
+[ ] Generate and optimize PWA icons
+[ ] Implement service worker strategies
+[ ] Add offline support
+[ ] Optimize third-party script loading
+[ ] Implement performance monitoring
+
+## Testing
+[ ] Add component tests
+[ ] Implement E2E tests with Cypress
+[ ] Add API route tests
+[ ] Set up visual regression testing
+[ ] Implement accessibility tests
+
+# Lessons Learned
+
+## Mobile Responsiveness
+- Use container-responsive for consistent layouts
+- Implement touch-target sizes for better mobile UX
+- Consider reduced motion preferences
+- Use responsive typography for better readability
+
+## Performance
+- Optimize images with next/image
+- Implement proper caching strategies
+- Use PWA for better mobile experience
+- Configure security headers properly
+
+## Testing
+- Set up Jest with Next.js configuration
+- Use Testing Library for component tests
+- Implement custom matchers for better assertions
+- Configure proper test coverage thresholds
+
+# Documentation Updates
+
+## Mobile Responsiveness
+- Added documentation for responsive utilities
+- Updated component usage guidelines
+- Added mobile-first design principles
+- Documented PWA features
+
+## Performance
+- Added image optimization guidelines
+- Documented caching strategies
+- Added PWA implementation details
+- Updated security configuration docs
+
+## Testing
+- Added testing setup documentation
+- Updated test writing guidelines
+- Added coverage requirements
+- Documented CI/CD integration
+
+# Recently Fixed Issues
+- Fixed responsive container padding
+- Optimized image loading performance
+- Configured proper PWA caching
+- Set up proper test environment
+- Added security headers configuration
+- Implemented proper touch target sizes
